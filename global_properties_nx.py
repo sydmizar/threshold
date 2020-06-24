@@ -104,16 +104,17 @@ if __name__ == '__main__':
         print('Calculating mean shortest path lenght ...')
         print("\n")
         
-        pathlengths_icd = []
+        pathlengths = []
         i = 0
         m_pl_icd = np.zeros((GP.number_of_nodes(), GP.number_of_nodes()))
         for v in GP.nodes():
-            spl = sorted(dict(nx.single_source_shortest_path_length(GP, v)))
+            spl = dict(nx.single_source_shortest_path_length(GP, v))
+            sorted_dict = {k: spl[k] for k in sorted(spl)}
             j = 0
-            for p in spl:
+            for p in sorted_dict:
                 #if v == p:
-                pathlengths_icd.append(spl[p])
-                m_pl_icd[i][j] = spl[p]
+                pathlengths.append(sorted_dict[p])
+                m_pl_icd[i][j] = sorted_dict[p]
                 j += 1
             i += 1
             
@@ -124,7 +125,7 @@ if __name__ == '__main__':
             
         df.to_csv('path_length_nodes_'+type_proj+'.csv', index=True, header=True, sep=',', encoding = 'utf-8-sig')
         
-        print("Average Shortest Path Length %s" % str(sum(pathlengths_icd) / len(pathlengths_icd)))
+        print("Average Shortest Path Length %s" % str(sum(pathlengths) / len(pathlengths)))
         print("\n")
         print('Calculating max value diameter ...')
         print("\n")
