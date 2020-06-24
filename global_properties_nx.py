@@ -14,9 +14,10 @@ import pandas as pd
 if __name__ == '__main__':
     type_nx = sys.argv[1]
     type_proj = sys.argv[2]
-    
+    print("Reading file ...")
     vdmdata_reduce = pd.read_csv('vdmdata_reduce.csv')
-
+    
+    print("Nodes lists ...")
     nodes_0 = []
     nodes_1 = []
     for m in vdmdata_reduce.iterrows():
@@ -26,6 +27,7 @@ if __name__ == '__main__':
     nodes_0 = list(dict.fromkeys(nodes_0))
     nodes_1 = list(dict.fromkeys(nodes_1))
     
+    print("Build a bipartite graph ...")
     # Build a bipartite graph:
     G = nx.Graph()
     G.add_nodes_from(nodes_0, bipartite=0) # disease
