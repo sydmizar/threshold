@@ -12,9 +12,8 @@ from networkx.algorithms import bipartite
 import pandas as pd
 
 if __name__ == '__main__':
-    type_nx = int(sys.argv[1])
-    graph_file = sys.argv[2]
-    type_proj = sys.argv[3]
+    type_nx = sys.argv[1]
+    type_proj = sys.argv[2]
     
     vdmdata_reduce = pd.read_csv('vdmdata_reduce.csv')
 
