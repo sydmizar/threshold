@@ -108,11 +108,11 @@ if __name__ == '__main__':
         
     if type_proj == 0:
         for th in sorted(list(counterCIE.keys())):
-            p.apply_asinc(threshold_analysis, [C, th, type_proj, len(degY)])
+            p.apply_async(threshold_analysis, [C, th, type_proj, len(degY)])
 #            threshold_analysis(C, th, type_proj, len(degY))
     elif type_proj == 1:
         for th in sorted(list(counterATC.keys())):
-            p.apply_asinc(threshold_analysis, [C, th, type_proj, len(degX)])
+            p.apply_async(threshold_analysis, [C, th, type_proj, len(degX)])
 #            threshold_analysis(C, th, type_proj, len(degX))
 
     p.close()
