@@ -3,6 +3,10 @@
 Created on Thu Jun 18 16:07:37 2020
 
 @author: BALAMLAPTOP2
+
+Input variables: 
+    type_nx = ['bipartite', 'projected']
+    type_proj = ['icd', 'atc']
 """
 
 import numpy as np
@@ -41,12 +45,12 @@ if __name__ == '__main__':
     
     if type_nx == 'projected' and type_proj == 'icd':
         # Build Projected Graph Diseases
-        GP = bipartite.weighted_projected_graph(G, nodes_0)
+        GP = bipartite.projected_graph(G, nodes_0)
         print('Calculate Global properties for projected graph '+type_proj)
         print("\n")
     elif type_nx == 'projected' and type_proj == 'atc':
         # Build Projected Graph Active Ingredients
-        GP = bipartite.weighted_projected_graph(G, nodes_1)
+        GP = bipartite.projected_graph(G, nodes_1)
         print('Calculate Global properties for projected graph '+type_proj)
         print("\n")
     else:
