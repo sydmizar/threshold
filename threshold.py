@@ -48,11 +48,11 @@ def threshold_analysis(C, th, type_proj, nn):
     print("Saving values for the given threshold ..."+str(th))
     if type_proj == 0:
         with open("threshold_icd.txt", "a+") as f:
-            f.write(str(len(components))+","+str(nodes_connected)+","+str(nodes_unconnected)+","+str(lcs)+","+str(avg_degree)+"\n")
+            f.write(str(th)+","+str(len(components))+","+str(nodes_connected)+","+str(nodes_unconnected)+","+str(lcs)+","+str(avg_degree)+"\n")
         nx.write_graphml(H,'ICD/projICD_th_'+str(th)+'.graphml')
     elif type_proj == 1:
         with open("threshold_atc.txt", "a+") as f:
-            f.write(str(len(components))+","+str(nodes_connected)+","+str(nodes_unconnected)+","+str(lcs)+","+str(avg_degree)+"\n")
+            f.write(str(th)+","+str(len(components))+","+str(nodes_connected)+","+str(nodes_unconnected)+","+str(lcs)+","+str(avg_degree)+"\n")
         nx.write_graphml(H,'ATC/projATC_th_'+str(th)+'.graphml')
     else:
         print("The option doesn't exist. Try again.")
