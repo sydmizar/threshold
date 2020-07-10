@@ -108,9 +108,14 @@ if __name__ == '__main__':
 #        p.apply_async(multip, [file])
         
     if type_proj == 0:
-        with multiprocessing.Pool() as p:
-            for th in sorted(list(counterCIE.keys())):
-                p.apply_async(threshold_analysis, [C, th, type_proj, len(degY)])
+        for th in sorted(list(counterCIE.keys())):
+            p = multiprocessing.Process(target=threshold_analysis, args=(C, th, type_proj, len(degY)))
+            p.start()
+            p.join()
+            
+#        with multiprocessing.Pool() as p:
+#            for th in sorted(list(counterCIE.keys())):
+#                p.apply_async(threshold_analysis, [C, th, type_proj, len(degY)])
 #            p.map(threshold_analysis)
 #        for th in sorted(list(counterCIE.keys())):
 #            p.apply_async(threshold_analysis, [C, th, type_proj, len(degY)])
