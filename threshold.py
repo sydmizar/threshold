@@ -108,14 +108,14 @@ if __name__ == '__main__':
 #        p.apply_async(multip, [file])
         
     if type_proj == 0:
-        for th in sorted(list(counterCIE.keys())):
-            p = multiprocessing.Process(target=threshold_analysis, args=(C, th, type_proj, len(degY)))
-            p.start()
-            p.join()
+#        for th in sorted(list(counterCIE.keys())):
+#            p = multiprocessing.Process(target=threshold_analysis, args=(C, th, type_proj, len(degY)))
+#            p.start()
+#            #p.join()
             
-#        with multiprocessing.Pool() as p:
-#            for th in sorted(list(counterCIE.keys())):
-#                p.apply_async(threshold_analysis, [C, th, type_proj, len(degY)])
+        with multiprocessing.Pool() as p:
+            for th in sorted(list(counterCIE.keys())):
+                p.apply_async(threshold_analysis, [C, th, type_proj, len(degY)])
 #            p.map(threshold_analysis)
 #        for th in sorted(list(counterCIE.keys())):
 #            p.apply_async(threshold_analysis, [C, th, type_proj, len(degY)])
@@ -126,7 +126,7 @@ if __name__ == '__main__':
 #            threshold_analysis(C, th, type_proj, len(degX))
 
     p.close()
-    #p.join()
+    p.join()
     print("Complete")
     end = time.time()
     print('total time (s)= ' + str(end-start))
