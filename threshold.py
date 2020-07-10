@@ -101,7 +101,7 @@ if __name__ == '__main__':
     
     #use one less process to be a little more stable
     #p = multiprocessing.Pool(processes = multiprocessing.cpu_count()-5)
-    #p = multiprocessing.Pool()
+    p = multiprocessing.Pool()
     #timing it...
     start = time.time()
 #    for file in names:
@@ -113,12 +113,12 @@ if __name__ == '__main__':
 #            p.start()
 #            #p.join()
             
-        with multiprocessing.Pool() as p:
-            for th in sorted(list(counterCIE.keys())):
-                p.apply_async(threshold_analysis, [C, th, type_proj, len(degY)])
+#        with multiprocessing.Pool() as p:
+#            for th in sorted(list(counterCIE.keys())):
+#                p.apply_async(threshold_analysis, [C, th, type_proj, len(degY)])
 #            p.map(threshold_analysis)
-#        for th in sorted(list(counterCIE.keys())):
-#            p.apply_async(threshold_analysis, [C, th, type_proj, len(degY)])
+        for th in sorted(list(counterCIE.keys())):
+            p.apply_async(threshold_analysis, [C, th, type_proj, len(degY)])
 #            threshold_analysis(C, th, type_proj, len(degY))
     elif type_proj == 1:
         for th in sorted(list(counterATC.keys())):
