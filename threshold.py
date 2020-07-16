@@ -153,13 +153,15 @@ if __name__ == '__main__':
         for th in sorted(list(counterCIE.keys())):
             p.apply_async(threshold_analysis, [C, th, type_proj, len(degY)])
             
-        graphic_connected_components(type_proj, counterCIE)
+#        graphic_connected_components(type_proj, counterCIE)
 #            threshold_analysis(C, th, type_proj, len(degY))
     elif type_proj == 1:
         for th in sorted(list(counterATC.keys())):
             p.apply_async(threshold_analysis, [C, th, type_proj, len(degX)])
-        graphic_connected_components(type_proj, counterATC)
+#        graphic_connected_components(type_proj, counterATC)
 #            threshold_analysis(C, th, type_proj, len(degX))
+        
+    
             
     
 
