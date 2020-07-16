@@ -9,7 +9,7 @@ Input variables:
 
 import networkx as nx
 from networkx.algorithms import bipartite
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 import collections
 import pandas as pd
 import multiprocessing
@@ -56,6 +56,39 @@ def threshold_analysis(C, th, type_proj, nn):
         nx.write_graphml(H,'ATC/projATC_th_'+str(th)+'.graphml')
     else:
         print("The option doesn't exist. Try again.")
+        
+def graphic_connected_components(type_proj, degree):
+    if type_proj == 0:
+        threshold_data = pd.read_csv("threshold_icd.txt", sep = ",", header = None)
+    elif type_proj == 1:
+        threshold_data = pd.read_csv("threshold_atc.txt", sep = ",", header = None)
+    
+    threshold_data.columns = ["threshold", "conn_components", "conn_nodes", "unconn_nodes", "lcs", "avg_degree"]
+    threshold_data = threshold_data.sort_values('threshold')
+    
+    n = len(degree) - threshold_data.shape[0]
+    
+    lstdegree = sorted(list(degree.keys()))[:len(degree) - n]
+    
+    fig, ax1 = plt.subplots()
+    #color = 'tab: black'
+    #ax1.set_ylabel('# Components')
+    #ax1.set_xlabel('Degree')
+    ax1.set_xlabel('Degree (k)')
+    ax1.plot(lstdegree, threshold_data['conn_nodes'], color = 'black', label = '# Connected Nodes')
+    ax1.plot(lstdegree, threshold_data['unconn_nodes'], color = 'r', label = '# Unconnected Nodes')
+    #ax1.tick_params(axis = 'y')
+    plt.legend(loc='center right')
+    ax2 = ax1.twinx()
+    ax2.plot(lstdegree, threshold_data['conn_components'], color = 'blue', linestyle=':', label = '# Connected Components')
+    ax2.set_ylabel('# Connected Components')
+    
+    name = "images/connected_components_"+type_proj
+    #plt.savefig(name + '.eps')
+    plt.savefig(name + '.png', dpi = 1000)
+    plt.clf()
+
+    
     
 
 if __name__ == '__main__':
@@ -119,11 +152,16 @@ if __name__ == '__main__':
 #            p.map(threshold_analysis)
         for th in sorted(list(counterCIE.keys())):
             p.apply_async(threshold_analysis, [C, th, type_proj, len(degY)])
+            
+        graphic_connected_components(type_proj, counterCIE)
 #            threshold_analysis(C, th, type_proj, len(degY))
     elif type_proj == 1:
         for th in sorted(list(counterATC.keys())):
             p.apply_async(threshold_analysis, [C, th, type_proj, len(degX)])
+        graphic_connected_components(type_proj, counterATC)
 #            threshold_analysis(C, th, type_proj, len(degX))
+            
+    
 
     p.close()
     p.join()
