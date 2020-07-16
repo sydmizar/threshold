@@ -83,7 +83,7 @@ def graphic_connected_components(type_proj, degree):
     ax2.plot(lstdegree, threshold_data['conn_components'], color = 'blue', linestyle=':', label = '# Connected Components')
     ax2.set_ylabel('# Connected Components')
     
-    name = "images/connected_components_"+type_proj
+    name = "images/connected_components_"+str(type_proj)
     #plt.savefig(name + '.eps')
     plt.savefig(name + '.png', dpi = 1000)
     plt.clf()
