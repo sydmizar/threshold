@@ -40,6 +40,7 @@ def threshold_analysis(C, th, type_proj, nn):
             index_source += 1        					
     components = sorted(nx.connected_components(H), key=len, reverse=True)
     nodes_connected = sum(list(map(lambda c: len(c), components)))
+    mean_size_components = nodes_connected / len(components)
     nodes_unconnected = nn - nodes_connected
     lcs = len(components[0])
     degrees = H.degree()
@@ -48,11 +49,11 @@ def threshold_analysis(C, th, type_proj, nn):
     print("Saving values for the given threshold ..."+str(th))
     if type_proj == 0:
         with open("threshold_icd.txt", "a+") as f:
-            f.write(str(th)+","+str(len(components))+","+str(nodes_connected)+","+str(nodes_unconnected)+","+str(lcs)+","+str(avg_degree)+"\n")
+            f.write(str(th)+","+str(len(components))+","+str(nodes_connected)+","+str(nodes_unconnected)+","+str(lcs)+","+str(avg_degree)+","+str(mean_size_components)+"\n")
         nx.write_graphml(H,'ICD/projICD_th_'+str(th)+'.graphml')
     elif type_proj == 1:
         with open("threshold_atc.txt", "a+") as f:
-            f.write(str(th)+","+str(len(components))+","+str(nodes_connected)+","+str(nodes_unconnected)+","+str(lcs)+","+str(avg_degree)+"\n")
+            f.write(str(th)+","+str(len(components))+","+str(nodes_connected)+","+str(nodes_unconnected)+","+str(lcs)+","+str(avg_degree)+","+str(mean_size_components)+"\n")
         nx.write_graphml(H,'ATC/projATC_th_'+str(th)+'.graphml')
     else:
         print("The option doesn't exist. Try again.")
@@ -63,7 +64,7 @@ def graphic_connected_components(type_proj, degree):
     elif type_proj == 1:
         threshold_data = pd.read_csv("threshold_atc.txt", sep = ",", header = None)
     
-    threshold_data.columns = ["threshold", "conn_components", "conn_nodes", "unconn_nodes", "lcs", "avg_degree"]
+    threshold_data.columns = ["threshold", "conn_components", "conn_nodes", "unconn_nodes", "lcs", "avg_degree", "mean_size"]
     threshold_data = threshold_data.sort_values('threshold')
     
     n = len(degree) - threshold_data.shape[0]
@@ -82,6 +83,7 @@ def graphic_connected_components(type_proj, degree):
     ax2 = ax1.twinx()
     ax2.plot(lstdegree, threshold_data['conn_components'], color = 'blue', linestyle=':', label = '# Connected Components')
     ax2.set_ylabel('# Connected Components')
+    ax2.plot(lstdegree, threshold_data['mean_size'], color = 'green', linestyle=':', label = 'Mean Size')
     
     name = "images/connected_components_"+str(type_proj)
     #plt.savefig(name + '.eps')
