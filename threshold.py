@@ -78,12 +78,13 @@ def graphic_connected_components(type_proj, degree):
     ax1.set_xlabel('Degree (k)')
     ax1.plot(lstdegree, threshold_data['conn_nodes'], color = 'black', label = '# Connected Nodes')
     ax1.plot(lstdegree, threshold_data['unconn_nodes'], color = 'r', label = '# Unconnected Nodes')
+    ax1.plot(lstdegree, threshold_data['mean_size'], color = 'green', label = 'Mean Size')
     #ax1.tick_params(axis = 'y')
     plt.legend(loc='center right')
     ax2 = ax1.twinx()
     ax2.plot(lstdegree, threshold_data['conn_components'], color = 'blue', linestyle=':', label = '# Connected Components')
     ax2.set_ylabel('# Connected Components')
-    ax2.plot(lstdegree, threshold_data['mean_size'], color = 'green', linestyle=':', label = 'Mean Size')
+    
     
     name = "images/connected_components_"+str(type_proj)
     #plt.savefig(name + '.eps')
