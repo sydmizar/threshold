@@ -1,0 +1,33 @@
+Reading file ...
+Nodes lists ...
+Build a bipartite graph ...
+Calculate Global properties for bipartite network
+
+
+Nodes Number : 9981
+
+
+Edges Number : 260995
+
+
+Calculating density ...
+
+
+Density ICD Nodes (Diseases): 0.013187754576541678
+
+
+Density ATC Nodes (Active Substances): 0.013187754576541678
+
+
+Calculating mean degree ...
+
+
+average degree: 52.2983668971045
+
+
+Calculating mean clustering ...
+
+
+Average clustering 0.15313759504914692
+
+
